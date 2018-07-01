@@ -10,23 +10,13 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema =  new mongoose.Schema({
-    name: {
-        type: String
-    },
-    isValid: {
-        type: Boolean
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
+module.exports = {
+    generic: {
+        requiredFieldsMissing: "Mandatory parameters missing. Bad Request!",
+        dataAlreadyExists: "Data already exists",
+        removed: "Data successfully removed",
+        update: "Data successfully updated",
+        create: "Data created successfully",
+        notExists: "Data not exists"
     }
-
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+}

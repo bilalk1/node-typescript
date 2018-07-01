@@ -13,7 +13,7 @@
 
 const mongoose = require('mongoose');
 const timestamp = require('mongoose-timestamp');
-const schema = mongoose.schema({
+const schema =  new mongoose.Schema({
     name: {
         type: String
     },

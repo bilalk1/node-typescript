@@ -11,22 +11,6 @@
 
 //  */
 
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema =  new mongoose.Schema({
-    name: {
-        type: String
-    },
-    isValid: {
-        type: Boolean
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
-    }
-
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+module.exports = {
+messages: require('./defaultMessages')
+};
