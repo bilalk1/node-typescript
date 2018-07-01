@@ -1,0 +1,17 @@
+{
+  "name": "pkflyers",
+  "version": "1.0.0",
+  "description": "PK Flyers is Bacically marketing related application ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.2",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  }
+}
