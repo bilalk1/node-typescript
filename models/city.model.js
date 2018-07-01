@@ -8,21 +8,25 @@
 //  *
 //  *
 //  * Author: Bilal Iftikhar
+
 //  */
 
 const mongoose = require('mongoose');
-let config = require('./config.json');
-let dburl = config.db.host;
+const timestamp = require('mongoose-timestamp');
+const schema = mongoose.schema({
+    name: {
+        type: String
+    },
+    isValid: {
+        type: Boolean
+    },
+    lat: {
+        type: String
+    },
+    lng: {
+        type: String
+    }
 
-mongoose.connect(dburl);
-mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + dburl);
 });
-mongoose.connection.on('error', function (error) {
-    console.log(" Mongoose connected error " + error);
-});
-mongoose.connection.on('disconnected', function () {
-    console.log(" Mongoose disconnected ");
-});
-
-require('../models');
+schema.plugin(timestamp);
+mongoose.model('City', schema);
