@@ -11,18 +11,18 @@
 
 //  */
 const mongoose = require('mongoose');
-const Category = mongoose.model('Category');
+const Country = mongoose.model('Country');
 const messages = require('../helpers/index').messages;
 const utility = require('../helpers/utilityFunctions');
-const postCategory = async (req, res) => {
+const postCountry = async (req, res) => {
     try {
         let { name } = req.body;
         if (!name) {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
-        let category = new Category(req.body);
-        category = await category.save();
-        return res.status(200).json(category);
+        let country = new Country(req.body);
+        country = await country.save();
+        return res.status(200).json(country);
     } catch (err) {
         if (err.code === 11000) {
             return res.status(400).json({ message: messages.generic.dataAlreadyExists });
@@ -31,17 +31,17 @@ const postCategory = async (req, res) => {
     }
 
 }
-const getCategories = async (req, res) => {
+const getCountries = async (req, res) => {
     try {
         let pagination = utility.initializePagination(req);
-        let [categories, total] = await Promise.all([
-            Category
+        let [countries, total] = await Promise.all([
+            Country
                 .find()
                 .skip((pagination.page - 1) * pagination.limit)
                 .limit(pagination.limit)
                 .lean()
                 .exec(),
-            Category
+            Country
                 .count()
         ]);
         res.status(200).json({
@@ -49,7 +49,7 @@ const getCategories = async (req, res) => {
             total,
             page: pagination.page,
             totalPages: Math.ceil(total / pagination.limit),
-            categories
+            countries
         });
 
     } catch (err) {
@@ -58,6 +58,6 @@ const getCategories = async (req, res) => {
 
 }
 module.exports = {
-    postCategory,
-    getCategories
+    postCountry,
+    getCountries
 }

@@ -11,18 +11,18 @@
 
 //  */
 const mongoose = require('mongoose');
-const Category = mongoose.model('Category');
+const City = mongoose.model('City');
 const messages = require('../helpers/index').messages;
 const utility = require('../helpers/utilityFunctions');
-const postCategory = async (req, res) => {
+const postCity = async (req, res) => {
     try {
         let { name } = req.body;
         if (!name) {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
-        let category = new Category(req.body);
-        category = await category.save();
-        return res.status(200).json(category);
+        let city = new City(req.body);
+        city = await city.save();
+        return res.status(200).json(city);
     } catch (err) {
         if (err.code === 11000) {
             return res.status(400).json({ message: messages.generic.dataAlreadyExists });
@@ -31,17 +31,17 @@ const postCategory = async (req, res) => {
     }
 
 }
-const getCategories = async (req, res) => {
+const getcities = async (req, res) => {
     try {
         let pagination = utility.initializePagination(req);
-        let [categories, total] = await Promise.all([
-            Category
+        let [cities, total] = await Promise.all([
+            City
                 .find()
                 .skip((pagination.page - 1) * pagination.limit)
                 .limit(pagination.limit)
                 .lean()
                 .exec(),
-            Category
+            City
                 .count()
         ]);
         res.status(200).json({
@@ -49,7 +49,7 @@ const getCategories = async (req, res) => {
             total,
             page: pagination.page,
             totalPages: Math.ceil(total / pagination.limit),
-            categories
+            cities
         });
 
     } catch (err) {
@@ -58,6 +58,6 @@ const getCategories = async (req, res) => {
 
 }
 module.exports = {
-    postCategory,
-    getCategories
+    postCity,
+    getcities
 }

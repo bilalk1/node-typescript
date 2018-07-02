@@ -10,25 +10,11 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
-    },
-    isValid: {
-        type: Boolean,
-        default: true
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
-    }
-
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+let category = require('./category.controller');
+let country = require('./country.controllers');
+let city = require('./city.controllers');
+module.exports = {
+    category,
+    country,
+    city
+}

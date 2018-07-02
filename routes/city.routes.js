@@ -11,24 +11,12 @@
 
 //  */
 
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
-    },
-    isValid: {
-        type: Boolean,
-        default: true
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
-    }
+const express = require('express');
+const router = express.Router();
+let controller = require('../controllers').city;
 
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+router
+    .post('/city', controller.postCity)
+    .get('/cities', controller.getcities)
+
+module.exports = router;

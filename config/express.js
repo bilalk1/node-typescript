@@ -16,6 +16,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const compression = require('compression');
+const routes = require('../routes');
 
 module.exports = () => {
     let app = express();
@@ -40,5 +41,6 @@ module.exports = () => {
     app.get('/', (req, res) => res.status(200).json({
         message: " App is working "
     }));
+    app.use(routes);
     return app;
 }

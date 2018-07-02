@@ -13,12 +13,14 @@
 
 const mongoose = require('mongoose');
 const timestamp = require('mongoose-timestamp');
-const schema =  new mongoose.Schema({
+const schema = new mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        unique: true
     },
     isValid: {
-        type: Boolean
+        type: Boolean,
+        default: true
     }
 
 });

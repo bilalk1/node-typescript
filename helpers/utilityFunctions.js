@@ -10,25 +10,16 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
-    },
-    isValid: {
-        type: Boolean,
-        default: true
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
+const constants = require('./constants');
+function initializePagination(req) {
+    const page = req.query.page || 1,
+        userLimit = parseInt(req.query.limit) || constants.PAGINATE.LIMIT,
+        limit = userLimit > constants.PAGINATE.MAX_LIMIT ? constants.PAGINATE.LIMIT : userLimit;
+    return {
+        page,
+        limit,
     }
-
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+}
+module.exports = {
+    initializePagination
+}

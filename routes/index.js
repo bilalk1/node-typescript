@@ -10,25 +10,10 @@
 //  * Author: Bilal Iftikhar
 
 //  */
+const express = require('express');
+const router = express.Router();
+router.use(require('./category.routes'));
+router.use(require('./country.routes'));
+router.use(require('./city.routes'));
 
-const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
-const schema = new mongoose.Schema({
-    name: {
-        type: String,
-        unique: true
-    },
-    isValid: {
-        type: Boolean,
-        default: true
-    },
-    lat: {
-        type: String
-    },
-    lng: {
-        type: String
-    }
-
-});
-schema.plugin(timestamp);
-mongoose.model('Country', schema);
+module.exports = router;
