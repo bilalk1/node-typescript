@@ -13,8 +13,10 @@
 let category = require('./category.controller');
 let country = require('./country.controllers');
 let city = require('./city.controllers');
+let store = require('./store.controllers');
 module.exports = {
     category,
     country,
+    store,
     city
 }

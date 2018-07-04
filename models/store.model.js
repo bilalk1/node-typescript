@@ -15,10 +15,12 @@ const mongoose = require('mongoose');
 const timestamp = require('mongoose-timestamp');
 const schema = new mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        unique: true
     },
     isValid: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     lat: {
         type: String
@@ -26,7 +28,7 @@ const schema = new mongoose.Schema({
     lng: {
         type: String
     },
-    category: [{
+    categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
     }],
@@ -34,12 +36,12 @@ const schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Country"
     },
-    city: {
+    cities: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "City"
-    }
-    
-  
+    }]
+
+
 
 });
 schema.plugin(timestamp);

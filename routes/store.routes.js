@@ -10,11 +10,17 @@
 //  * Author: Bilal Iftikhar
 
 //  */
+
 const express = require('express');
 const router = express.Router();
-router.use(require('./category.routes'));
-router.use(require('./country.routes'));
-router.use(require('./city.routes'));
-router.use(require('./store.routes'));
+let controller = require('../controllers').store;
+
+router
+    .post('/store', controller.postStore)
+    .get('/stores', controller.getStores)
+    .get('/store/:id',controller.getStoresById)
+    .get('/stores/:country/:city', controller.getStoresByCountryAndCity)
+    .get('/stores/:category/:country/:city', controller.getStoresByCategoryCountryAndCity)
+
 
 module.exports = router;
