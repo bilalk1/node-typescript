@@ -17,7 +17,6 @@ const messages = require('../helpers/index').messages;
 const utility = require('../helpers/utilityFunctions');
 
 const postStore = async (req, res) => {
-    console.log("Hey i  am in store");
     try {
         let { name } = req.body;
         if (!name) {
@@ -162,12 +161,50 @@ const getStoresById = async (req, res) => {
         return res.status(500).json({ message: err.message });
     }
 
+}
+const getStoresByCategory = async (req, res) => {
+    try {
+        console.log("getStoresByCategory")
+        let { category } = req.params;
+        let pagination = utility.initializePagination(req);
+        console.log(category)
+        let [stores, total] = await Promise.all([
+            Store
+                .find({categories:category})
+                .select('-updatedAt -createdAt -__v -isValid')
+                .populate('country', 'name')
+                .populate('cities', 'name')
+                .populate('categories', 'name')
+                .skip((pagination.page - 1) * pagination.limit)
+                .limit(pagination.limit)
+                .lean()
+                .exec(),
+            Store
+                .count({categories:category})
+        ]);
+        if (stores !== null) {
+            res.status(200).json({
+                limit: pagination.limit,
+                total,
+                page: pagination.page,
+                totalPages: Math.ceil(total / pagination.limit),
+                stores
+            });
+        } else {
+            res.status(400).json({ message: messages.generic.notExists });
+        }
 
+
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 module.exports = {
     postStore,
     getStores,
     getStoresById,
+    getStoresByCategory,
     getStoresByCountryAndCity,
     getStoresByCategoryCountryAndCity
 
