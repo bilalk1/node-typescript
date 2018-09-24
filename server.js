@@ -11,9 +11,9 @@
 //  */
 
 let express = require('./config/express');
-let config = require('./config/config.json');
+let {config} = require('./config/config.js');
 app = express();
-app.set('port', config.node_port);
+app.set('port', config.development.node_port);
 const http = require('http');
 const server = http.createServer(app)
     .listen(app.get('port'), function (err) {

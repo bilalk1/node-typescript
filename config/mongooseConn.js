@@ -11,8 +11,8 @@
 //  */
 
 const mongoose = require('mongoose');
-let config = require('./config.json');
-let dburl = config.db.host;
+let {config} = require('./config.js');
+let dburl = config.development.db.host
 
 mongoose.connect(dburl);
 mongoose.connection.on('connected', function () {
