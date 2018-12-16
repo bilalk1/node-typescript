@@ -1,16 +1,19 @@
 // /**********************************************************************
-//  * Copyright (c) 2018 PK Flyers , all rights reserved
+//  * Copyright (c) 2018 eActivate Manager , all rights reserved
 //  * Proprietary and Confidential Information
 //  *
-//  * This source file is the property of PK Flyers, and
+//  * This source file is the property of eActivate Manager, and
 //  * may not be copied or distributed in any isomorphic form without
-//  * the prior written consent of PK Flyers.
+//  * the prior written consent of eActivate Manager.
 //  *
 //  *
 //  * Author: Bilal Iftikhar
 
 //  */
 const constants = require('./constants');
+const QRCode = require('qrcode');
+let { sha256 } = require('js-sha256');
+
 function initializePagination(req) {
     const page = req.query.page || 1,
         userLimit = parseInt(req.query.limit) || constants.PAGINATE.LIMIT,
@@ -20,6 +23,41 @@ function initializePagination(req) {
         limit,
     }
 }
+function generateOTP() {
+    var digits = '0123456789';
+    let OTP = '';
+    for (let i = 0; i < 4; i++) {
+        OTP += digits[Math.floor(Math.random() * 10)];
+    }
+    return OTP;
+}
+function SHA256(card) {
+    let key = sha256(card.id);
+    key = sha256.hmac(key, card.otp)
+    key = sha256.hmac(key, card.cardHolderName)
+    key = sha256.hmac(key, card.cardLastFourDigits)
+    return key;
+}
+
+const generateQrCode = (body) => {
+    try {
+        return new Promise((resolve, reject) => {
+            QRCode.toDataURL(body, function (err, res) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        })
+
+    } catch (err) {
+        console.error(err)
+    }
+}
 module.exports = {
-    initializePagination
+    initializePagination,
+    generateOTP,
+    generateQrCode,
+    SHA256
 }

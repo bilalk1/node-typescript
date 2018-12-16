@@ -1,25 +1,26 @@
 var config = {
     development: {
         credentials: {
-            adminUser: 'admin@getwomb.com',
-            password: '1234',
-            email : 'admin@getwomb.com'
+            adminUser: 'demo',
+            password: 'dem123',
+            email: 'demo@demo.com'
+        },
+        sparkPost: {
+            url: `https://api.sparkpost.com/api/v1/transmissions`,
+            authorization: `3e5d1a2d91cbc4e652f607483d85c178ec2cac29`,
+            email: `poc@gnd-canvas.ca`,
+            contentTtype: `application/json`,
+            name: `G+D Canvas`,
+            subject: `POC from G+D`
         },
         ip: '127.0.0.1',
         node_port: 3000,
         db: {
-            host: 'mongodb://localhost:27017/pk_flayers',
+            host: 'mongodb://localhost:27017/e_activate_manager',
         },
-        AUTH_TIMEOUT: {
-            user: 1800,
-            admin: 3600,
-            provider: 3600
-        },
-        // JWT_SECRETS: {
-        //     TOKEN: secret_data.secret_data.values.dev_token 
-        // }
+
     },
 }
-module.exports={
+module.exports = {
     config
 }

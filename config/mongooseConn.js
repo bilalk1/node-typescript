@@ -1,20 +1,20 @@
 // /**********************************************************************
-//  * Copyright (c) 2018 PK Flyers , all rights reserved
+//  * Copyright (c) 2018 eActivate Manager , all rights reserved
 //  * Proprietary and Confidential Information
 //  *
-//  * This source file is the property of PK Flyers, and
+//  * This source file is the property of eActivate Manager, and
 //  * may not be copied or distributed in any isomorphic form without
-//  * the prior written consent of PK Flyers.
+//  * the prior written consent of eActivate Manager.
 //  *
 //  *
 //  * Author: Bilal Iftikhar
 //  */
 
 const mongoose = require('mongoose');
-let {config} = require('./config.js');
+let { config } = require('./config.js');
 let dburl = config.development.db.host
 
-mongoose.connect(dburl);
+mongoose.connect(dburl, { useNewUrlParser: true });
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dburl);
 });

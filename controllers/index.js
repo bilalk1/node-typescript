@@ -10,13 +10,9 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-let category = require('./category.controller');
-let country = require('./country.controllers');
-let city = require('./city.controllers');
-let store = require('./store.controllers');
+let card = require('./card.controllers');
+let user = require('./user.controller');
 module.exports = {
-    category,
-    country,
-    store,
-    city
+    card,
+    user
 }
