@@ -1,9 +1,9 @@
 var config = {
     development: {
         credentials: {
-            adminUser: 'demo',
-            password: 'dem123',
-            email: 'demo@demo.com'
+            adminUser: 'admin',
+            password: 'admin123',
+            email: `admin@admin.com`
         },
         sparkPost: {
             url: `https://api.sparkpost.com/api/v1/transmissions`,
@@ -18,6 +18,7 @@ var config = {
         db: {
             host: 'mongodb://localhost:27017/e_activate_manager',
         },
+        jwtSecret: 'password',
 
     },
 }
