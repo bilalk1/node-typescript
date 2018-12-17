@@ -11,19 +11,6 @@
 
 //  */
 
-
-
-
-
-// url:https://api.sparkpost.com/api/v1/transmissions
-// method: post
-// headers:
-// Content-Type: application/json
-// Authorization:3e5d1a2d91cbc4e652f607483d85c178ec2cac29
-// Payload: {"content": {"from": {"name": "G+D Canvas", "email": "poc@gnd-canvas.ca"}, "subject": "POC from G+D", "html": "%THE BODY OF YOUR EMAIL%"}, "recipients": [{ "address": "%RECIPIENT%" }]}
-//  
-
-
 const mongoose = require('mongoose');
 const Card = mongoose.model('Card');
 const messages = require('../helpers/index').messages;

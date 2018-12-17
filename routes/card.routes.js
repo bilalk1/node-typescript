@@ -17,6 +17,6 @@ let controller = require('../controllers').card;
 
 router
     .post('/card', controller.postCard)
-    .get('/cards', controller.getCards)
+    .get('/card', controller.getCards)
 
 module.exports = router;
