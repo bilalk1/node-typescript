@@ -24,7 +24,7 @@ const postUser = async (req, res) => {
             return res.status(400).json({ message: messages.user.inValid });
         }
         let user = { email }
-        return res.status(200).json({ token: createToken(user, true) });
+        return res.status(200).json({ adminData: { token: createToken(user, true) } });
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

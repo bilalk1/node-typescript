@@ -13,10 +13,11 @@
 
 const express = require('express');
 const router = express.Router();
-let controller = require('../controllers').card;
+let controller = require('../controllers').userInformation;
 
 router
-    .post('/card', controller.postCard)
-    .get('/card', controller.getCards)
+    .post('/user', controller.postUserInformation)
+    .get('/users', controller.getUserInformation)
+    .post('/user/status',controller.postUserInformationStatus)
 
 module.exports = router;

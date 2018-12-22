@@ -21,6 +21,8 @@ module.exports = {
     },
     user: {
         valid: "Valid email and password!",
-        inValid: 'Invalid email and password!'
+        inValid: 'Invalid email and password!',
+        active: 'User is successfully active!',
+        notFound: 'User not Found!'
     }
 }

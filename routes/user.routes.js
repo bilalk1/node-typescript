@@ -16,6 +16,6 @@ const router = express.Router();
 let controller = require('../controllers').user;
 
 router
-    .post('/user', controller.postUser)
+    .post('/admin/login', controller.postUser)
 
 module.exports = router;

@@ -11,5 +11,5 @@
 
 //  */
 
-require('./card.model');
+require('./users-information.model');
 require('./user.model');

@@ -10,9 +10,9 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-let card = require('./card.controllers');
+let userInformation = require('./users-information.controllers');
 let user = require('./user.controller');
 module.exports = {
-    card,
+    userInformation,
     user
 }

@@ -12,12 +12,12 @@
 //  */
 
 const mongoose = require('mongoose');
-const Card = mongoose.model('Card');
+const UserInformation = mongoose.model('UserInformation');
 const messages = require('../helpers/index').messages;
 const sparkPostEmail = require('../helpers/sparkPostEmail');
 const utility = require('../helpers/utilityFunctions');
 
-const postCard = async (req, res) => {
+const postUserInformation = async (req, res) => {
     try {
         let { email, cardHolderName, cardLastFourDigits } = req.body;
 
@@ -27,22 +27,18 @@ const postCard = async (req, res) => {
         let otp = utility.generateOTP();
         req.body['otp'] = otp;
 
-        let card = new Card(req.body);
-        card = await card.save();
+        let userInformation = new UserInformation(req.body);
+        userInformation = await userInformation.save();
 
-        let sha = utility.SHA256(card);
-        let qrCode = await utility.generateQrCode(sha);
+        let qrCodeInformation = utility.SHA256(userInformation);
+        let qrCode = await utility.generateQrCode(qrCodeInformation);
 
-        // res.send(card); we can make email sending process as background process;
-        // await sparkPostEmail.sendEmail(otp, email);
-        card['qrCode'] = qrCode;
-        await card.updateOne(card);
+        // res.send(userInformation); we can make email sending process as background process;
+        await sparkPostEmail.sendEmail(otp, email);
+        userInformation['qrCode'] = qrCode;
+        userInformation['qrCodeInformation'] = qrCodeInformation;
+        await userInformation.updateOne(userInformation);
         return res.status(200).json({ messages: messages.generic.update });
-
-
-
-
-
     } catch (err) {
         if (err.code === 11000) {
             return res.status(400).json({ message: messages.generic.dataAlreadyExists });
@@ -53,19 +49,19 @@ const postCard = async (req, res) => {
 
 }
 
-const getCards = async (req, res) => {
+const getUserInformation = async (req, res) => {
     try {
         let pagination = utility.initializePagination(req);
         let where;
-        let [cards, total] = await Promise.all([
-            Card
+        let [userInformation, total] = await Promise.all([
+            UserInformation
                 .find({ where: where })
                 .skip((pagination.page - 1) * pagination.limit)
                 .limit(pagination.limit)
                 .select('cardLastFourDigits cardHolderName expiryDate cvv email  qrCode status')
                 .lean()
                 .exec(),
-            Card
+            UserInformation
                 .count()
         ]);
         res.status(200).json({
@@ -73,15 +69,40 @@ const getCards = async (req, res) => {
             total,
             page: pagination.page,
             totalPages: Math.ceil(total / pagination.limit),
-            cards
+            userInformation
         });
 
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
+}
+
+const postUserInformationStatus = async (req, res) => {
+    try {
+        let { qrCode, otp } = req.body;
+        if (!qrCode || !otp) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        let query = {
+            $and: [
+                { otp: { $eq: otp } },
+                { qrCodeInformation: { $eq: qrCode } }
+            ]
+        }
+        let userInformation = await UserInformation.find(query);
+        if (userInformation.length > 0) {
+            await UserInformation.updateOne(query, { status: true });
+            return res.status(200).json({ messages: messages.user.active });
+        }
+        return res.status(400).json({ messages: messages.user.notFound });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
 
 }
+
 module.exports = {
-    postCard,
-    getCards
+    postUserInformation,
+    getUserInformation,
+    postUserInformationStatus
 }
