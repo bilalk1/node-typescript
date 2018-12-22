@@ -31,11 +31,11 @@ function generateOTP() {
     }
     return OTP;
 }
-function SHA256(userInformation) {
-    let key = sha256(userInformation.id);
-    key = sha256.hmac(key, userInformation.otp)
-    key = sha256.hmac(key, userInformation.cardHolderName)
-    key = sha256.hmac(key, userInformation.cardLastFourDigits)
+function SHA256(card) {
+    let key = sha256(card.id);
+    key = sha256.hmac(key, card.otp)
+    key = sha256.hmac(key, card.cardHolderName)
+    key = sha256.hmac(key, card.cardLastFourDigits)
     return key;
 }
 

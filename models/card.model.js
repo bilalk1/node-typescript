@@ -46,4 +46,4 @@ const schema = new mongoose.Schema({
     }
 }, { versionKey: false });
 schema.plugin(timestamp);
-mongoose.model('UserInformation', schema);
+mongoose.model('Card', schema);

@@ -12,7 +12,7 @@
 //  */
 const express = require('express');
 const router = express.Router();
-router.use(require('./users-information.routes'));
+router.use(require('./card.routes'));
 router.use(require('./user.routes'));
 
 module.exports = router;
