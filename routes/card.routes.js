@@ -19,5 +19,6 @@ router
     .post('/card', controller.postCard)
     .get('/cards', controller.getCard)
     .post('/card/status',controller.postCardStatus)
+    .put('/card',controller.updateCard)
 
 module.exports = router;

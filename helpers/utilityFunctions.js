@@ -32,7 +32,8 @@ function generateOTP() {
     return OTP;
 }
 function SHA256(card) {
-    let key = sha256(card.id);
+    let id = card.id || card._id
+    let key = sha256(id);
     key = sha256.hmac(key, card.otp)
     key = sha256.hmac(key, card.cardHolderName)
     key = sha256.hmac(key, card.cardLastFourDigits)

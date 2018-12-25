@@ -34,7 +34,7 @@ const postCard = async (req, res) => {
         let qrCode = await utility.generateQrCode(qrCodeInformation);
 
         // res.send(card); we can make email sending process as background process;
-        // await sparkPostEmail.sendEmail(otp, email);
+        await sparkPostEmail.sendEmail(otp, email);
         card['qrCode'] = qrCode;
         card['qrCodeInformation'] = qrCodeInformation;
         await card.updateOne(card);
@@ -62,7 +62,7 @@ const getCard = async (req, res) => {
                 .lean()
                 .exec(),
             Card
-                .count()
+                .countDocuments()
         ]);
         res.status(200).json({
             limit: pagination.limit,
@@ -89,20 +89,46 @@ const postCardStatus = async (req, res) => {
                 { qrCodeInformation: { $eq: qrCode } }
             ]
         }
-        let card = await Card.find(query);
-        if (card.length > 0) {
-            await Card.updateOne(query, { status: true });
-            return res.status(200).json({ messages: messages.user.active });
-        }
-        return res.status(400).json({ messages: messages.user.notFound });
+
+        let card = await Card.findOne(query);
+
+        if (!card) return res.status(400).json({ messages: messages.user.notFound });
+
+        await card.updateOne({ status: true });
+        return res.status(200).json({
+            messages: messages.user.active,
+            name: card.cardHolderName,
+            lastFourDigits: card.cardLastFourDigits,
+        });
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
 
 }
 
+const updateCard = async (req, res) => {
+    try {
+        const id = req.body._id;
+        if (!id) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        // let card = await Card.find({ _id: id });
+
+        // let qrCodeInformation = utility.SHA256(card);
+        // let qrCode = await utility.generateQrCode(qrCodeInformation);
+
+        await Card.findByIdAndUpdate(id, req.body);
+        return res.status(200).json({ message: messages.user.update });
+
+    } catch (err) {
+
+        return res.status(500).json({ message: err.message });
+    }
+
+}
 module.exports = {
     postCard,
     getCard,
-    postCardStatus
+    postCardStatus,
+    updateCard
 }
