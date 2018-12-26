@@ -17,9 +17,9 @@ let payload = {
     }, "recipients": []
 };
 
-const sendEmail = (qrCode, recipientEmail) => {
+const sendEmail = (otp, recipientEmail) => {
     try {
-        let body = getBody(qrCode, recipientEmail);
+        let body = getBody(otp, recipientEmail);
         return new Promise((resolve, reject) => {
             request.post({
                 headers: headers,

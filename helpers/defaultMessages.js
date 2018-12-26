@@ -17,13 +17,15 @@ module.exports = {
         removed: "Data successfully removed",
         update: "Data successfully updated",
         create: "Data created successfully",
-        notExists: "Data not exists"
+        notExists: "Data not exists",
     },
     user: {
         valid: "Valid email and password!",
         inValid: 'Invalid email and password!',
         active: 'User is successfully active!',
         notFound: 'User not Found!',
-        update:`User is successfully update! `
+        update:`User is successfully update!`,
+        sendOtp:`OTP is successfully sent!`,
+        statusUpdated : `Status successfully updated`
     }
 }

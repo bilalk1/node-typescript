@@ -18,7 +18,9 @@ let controller = require('../controllers').card;
 router
     .post('/card', controller.postCard)
     .get('/cards', controller.getCard)
-    .post('/card/status',controller.postCardStatus)
-    .put('/card',controller.updateCard)
+    .post('/card/status', controller.postCardStatus)
+    .put('/card', controller.updateCard)
+    .post('/send-otp', controller.sendOtp)
+    .post('/update-card-status', controller.updateCardStatus)
 
 module.exports = router;

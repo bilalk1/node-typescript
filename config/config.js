@@ -3,7 +3,7 @@ var config = {
         credentials: {
             adminUser: 'admin',
             password: 'admin123',
-            email: `admin@admin.com`
+            email: `mehdi.heidari@gi-de.com`
         },
         sparkPost: {
             url: `https://api.sparkpost.com/api/v1/transmissions`,

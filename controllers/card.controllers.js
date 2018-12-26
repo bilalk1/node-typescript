@@ -108,16 +108,17 @@ const postCardStatus = async (req, res) => {
 
 const updateCard = async (req, res) => {
     try {
-        const id = req.body._id;
-        if (!id) {
+        let { _id, email, cardHolderName, cardLastFourDigits } = req.body;
+        if (!_id || !email || !cardHolderName || !cardLastFourDigits) {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
-        // let card = await Card.find({ _id: id });
-
-        // let qrCodeInformation = utility.SHA256(card);
-        // let qrCode = await utility.generateQrCode(qrCodeInformation);
-
-        await Card.findByIdAndUpdate(id, req.body);
+        let card = await Card.findOne({ _id: _id });
+        req.body.otp = card.otp;
+        let qrCodeInformation = utility.SHA256(req.body);
+        let qrCode = await utility.generateQrCode(qrCodeInformation);
+        req.body.qrCode = qrCode;
+        req.body.qrCodeInformation = qrCodeInformation;
+        await card.updateOne(req.body);
         return res.status(200).json({ message: messages.user.update });
 
     } catch (err) {
@@ -126,9 +127,41 @@ const updateCard = async (req, res) => {
     }
 
 }
+
+const sendOtp = async (req, res) => {
+    try {
+        let { id, email } = req.body;
+        if (!id || !email) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        let card = await Card.findOne({ _id: id });
+        await sparkPostEmail.sendEmail(card.otp, email);
+        return res.status(200).json({ message: messages.user.sendOtp });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+const updateCardStatus = async (req, res) => {
+    try {
+        let { id, status } = req.body;
+        if (!id ) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        await Card.updateOne({ _id: id }, { status: status });
+            return res.status(200).json({ message: messages.user.statusUpdated });
+
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+
+    }
+}
 module.exports = {
     postCard,
     getCard,
     postCardStatus,
-    updateCard
+    updateCard,
+    sendOtp,
+    updateCardStatus
 }
