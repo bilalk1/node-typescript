@@ -22,5 +22,6 @@ router
     .put('/card', controller.updateCard)
     .post('/send-otp', controller.sendOtp)
     .post('/update-card-status', controller.updateCardStatus)
+    .delete('/card/:id', controller.deleteCard)
 
 module.exports = router;

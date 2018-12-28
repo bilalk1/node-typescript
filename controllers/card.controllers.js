@@ -145,12 +145,24 @@ const sendOtp = async (req, res) => {
 const updateCardStatus = async (req, res) => {
     try {
         let { id, status } = req.body;
-        if (!id ) {
+        if (!id) {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
         await Card.updateOne({ _id: id }, { status: status });
-            return res.status(200).json({ message: messages.user.statusUpdated });
+        return res.status(200).json({ message: messages.user.statusUpdated });
 
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+
+    }
+}
+const deleteCard = async (req, res) => {
+    try {
+        let { id } = req.params;
+        if (!id) return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        await Card.deleteOne({ _id: id });
+        return res.status(200).json({ message: messages.generic.removed });
     }
     catch (error) {
         return res.status(500).json({ message: error.message });
@@ -163,5 +175,6 @@ module.exports = {
     postCardStatus,
     updateCard,
     sendOtp,
-    updateCardStatus
+    updateCardStatus,
+    deleteCard
 }
