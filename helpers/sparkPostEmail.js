@@ -45,7 +45,7 @@ const sendEmail = (otp, recipientEmail) => {
 function getBody(otp, recipientEmail) {
     payload.recipients = [];
     payload.recipients.push({ "address": recipientEmail });
-    payload.content.html = `Your Verification 4 digit OTP is ${otp}`;
+    payload.content.html = `Your Verification 8 digit OTP is ${otp}`;
     return JSON.stringify(payload);
 }
 module.exports = { sendEmail }
