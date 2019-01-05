@@ -25,7 +25,7 @@ function initializePagination(req) {
 }
 function generateOTP() {
     while (true) {
-        let OTP = Math.random().toString(16).substring(2, 6) + Math.random().toString(36).substring(2, 6);
+        let OTP = Math.random().toString(16).substring(2, 6).toUpperCase() + Math.random().toString(36).substring(2, 6).toUpperCase();
         let Exp = /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i;
         if (OTP.match(Exp)) return OTP;
     }
