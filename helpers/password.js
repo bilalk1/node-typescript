@@ -10,21 +10,20 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-const express = require('express');
-const router = express.Router();
-const mdw = require('../middlewares');
 
+var bcrypt = require('bcrypt');
 
+// let encryptPassword = async (new_password) => {
+//     return await bcrypt.hashSync(newpassword, await salt());
+// }
 
-let authorized = require('./authorized');
-let ununauthorized = require('./unauthorized')
-router.use(function (req, res, next) {
-    if (req.method == "OPTIONS") {
-        res.send(200);
-    } else {
-        next();
-    }
-});
-router.use(ununauthorized, mdw.basicAuthentication, authorized);
-
-module.exports = router;
+let encryptPassword = async (password, salt) => {
+    return await bcrypt.hashSync(password, salt);
+}
+const salt = async () => {
+    return await bcrypt.genSaltSync(10);
+}
+module.exports = {
+    encryptPassword,
+    salt
+}

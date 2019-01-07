@@ -105,6 +105,23 @@ const postCardStatus = async (req, res) => {
     }
 
 }
+const getCardStatus = async (req, res) => {
+    try {
+        let { qrCode } = req.body;
+        if (!qrCode) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        let query = {
+            qrCodeInformation: { $eq: qrCode }
+        };
+        let card = await Card.findOne(query);
+        if (!card) return res.status(400).json({ messages: messages.user.notFound });
+        return res.status(200).json({ status: card.status });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+
+}
 
 const updateCard = async (req, res) => {
     try {
@@ -176,5 +193,6 @@ module.exports = {
     updateCard,
     sendOtp,
     updateCardStatus,
-    deleteCard
+    deleteCard,
+    getCardStatus
 }

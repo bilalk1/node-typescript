@@ -27,5 +27,9 @@ module.exports = {
         update:`User is successfully update!`,
         sendOtp:`OTP is successfully sent!`,
         statusUpdated : `Status successfully updated`
+    },
+    account:{
+        unAuthorized: `Unauthorized`,
+        signUp: `User successfully Sign Up `
     }
 }

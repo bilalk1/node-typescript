@@ -10,18 +10,8 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-
-const express = require('express');
-const router = express.Router();
-let controller = require('../controllers').card;
-
-router
-    .post('/card', controller.postCard)
-    .get('/cards', controller.getCard)
-    .post('/card/status', controller.postCardStatus)
-    .put('/card', controller.updateCard)
-    .post('/send-otp', controller.sendOtp)
-    .post('/update-card-status', controller.updateCardStatus)
-    .delete('/card/:id', controller.deleteCard)
-
+var express = require("express"),
+    router = express.Router()
+card = require('./card.routes')
+router.use('/card', card);
 module.exports = router;

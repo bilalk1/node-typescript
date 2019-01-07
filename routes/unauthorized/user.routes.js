@@ -13,9 +13,10 @@
 
 const express = require('express');
 const router = express.Router();
-let controller = require('../controllers').user;
+let controller = require('../../controllers').user;
 
 router
-    .post('/admin/login', controller.postUser)
+    .post('/signIn', controller.signIn)
+    .post('/signUp', controller.signUp)
 
 module.exports = router;

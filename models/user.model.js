@@ -19,11 +19,17 @@ const schema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String,
+        type: String
+    },
+    salt: {
+        type: String
     },
     isValid: {
         type: Boolean,
         default: true
+    },
+    type: {
+        type: String,
     }
 });
 schema.plugin(timestamp);
