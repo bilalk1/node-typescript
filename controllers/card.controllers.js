@@ -107,7 +107,7 @@ const postCardStatus = async (req, res) => {
 }
 const getCardStatus = async (req, res) => {
     try {
-        let { qrCode } = req.body;
+        let { qrCode } = req.query;
         if (!qrCode) {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
