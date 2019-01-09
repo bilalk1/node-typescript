@@ -186,6 +186,24 @@ const deleteCard = async (req, res) => {
 
     }
 }
+const postCardPin = async (req, res) => {
+    try {
+        let { qrCode, pin } = req.body;
+        if (!qrCode || !pin) {
+            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+        }
+        let query = { qrCodeInformation: { $eq: qrCode } };
+
+        let card = await Card.findOne(query);
+
+        if (!card) return res.status(400).json({ messages: messages.user.notFound });
+        await card.updateOne({ pin: pin });
+        return res.status(200).json({ message: messages.generic.update });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+
+}
 module.exports = {
     postCard,
     getCard,
@@ -194,5 +212,6 @@ module.exports = {
     sendOtp,
     updateCardStatus,
     deleteCard,
-    getCardStatus
+    getCardStatus,
+    postCardPin
 }

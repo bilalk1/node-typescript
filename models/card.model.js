@@ -43,6 +43,9 @@ const schema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: false
+    },
+    pin: {
+        type: String
     }
 }, { versionKey: false });
 schema.plugin(timestamp);
