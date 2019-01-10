@@ -10,12 +10,15 @@
 //  * Author: Bilal Iftikhar
 
 //  */
-var express = require("express"),
-    router = express.Router()
-    card = require('./card.routes'),
-    user = require('./user.routes')
-    router
-        .use('/card', card)
-        .use('/user', user)
+
+const express = require('express');
+const router = express.Router();
+let controller = require('../../controllers').user;
+const auth = require('../../middlewares').authorization;
+
+router
+    .post('/', auth.superAdmin, controller.postUser)
+    .get('/', auth.admin, controller.getUser)
+    .delete('/:id', auth.superAdmin, controller.deleteUser)
 
 module.exports = router;

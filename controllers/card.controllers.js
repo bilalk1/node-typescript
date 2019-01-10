@@ -34,7 +34,7 @@ const postCard = async (req, res) => {
         let qrCode = await utility.generateQrCode(qrCodeInformation);
 
         // res.send(card); we can make email sending process as background process;
-        await sparkPostEmail.sendEmail(otp, email);
+        await sparkPostEmail.sendEmail(card.cardHolderName, otp, email);
         card['qrCode'] = qrCode;
         card['qrCodeInformation'] = qrCodeInformation;
         await card.updateOne(card);
@@ -51,6 +51,7 @@ const postCard = async (req, res) => {
 
 const getCard = async (req, res) => {
     try {
+
         let pagination = utility.initializePagination(req);
         let where;
         let [card, total] = await Promise.all([
@@ -152,7 +153,7 @@ const sendOtp = async (req, res) => {
             return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
         }
         let card = await Card.findOne({ _id: id });
-        await sparkPostEmail.sendEmail(card.otp, email);
+        await sparkPostEmail.sendEmail(card.cardHolderName, card.otp, email);
         return res.status(200).json({ message: messages.user.sendOtp });
 
     } catch (error) {
