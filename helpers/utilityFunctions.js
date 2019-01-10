@@ -23,13 +23,19 @@ function initializePagination(req) {
         limit,
     }
 }
-function generateOTP() {
-    while (true) {
-        let OTP = Math.random().toString(16).substring(2, 6).toUpperCase() + Math.random().toString(36).substring(2, 6).toUpperCase();
-        let Exp = /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i;
-        if (OTP.match(Exp)) return OTP;
+    // while (true) {
+    //     let OTP = Math.random().toString(16).substring(2, 6) + Math.random().toString(36).substring(2, 6).toUpperCase();
+    //     let Exp = /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i;
+    //     if (OTP.match(Exp)) return OTP;
+    // }
+    function generateOTP() {
+        var digits = '0123456789';
+        let OTP = '';
+        for (let i = 0; i < 8; i++) {
+            OTP += digits[Math.floor(Math.random() * 10)];
+        }
+        return OTP;
     }
-}
 function SHA256(card) {
     let id = card.id || card._id
     let key = sha256(id);
