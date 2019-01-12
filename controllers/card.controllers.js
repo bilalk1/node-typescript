@@ -59,7 +59,7 @@ const getCard = async (req, res) => {
                 .find({ where: where })
                 .skip((pagination.page - 1) * pagination.limit)
                 .limit(pagination.limit)
-                .select('cardLastFourDigits cardHolderName expiryDate cvv email  qrCode status')
+                .select('cardLastFourDigits cardHolderName expiryDate cvv email  qrCode status pin')
                 .lean()
                 .exec(),
             Card
