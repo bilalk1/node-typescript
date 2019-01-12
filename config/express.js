@@ -41,6 +41,7 @@ module.exports = () => {
     app.get('/', (req, res) => res.status(200).json({
         message: " App is working "
     }));
+    app.use(express.static('public'));
     app.use(routes);
     return app;
 }
