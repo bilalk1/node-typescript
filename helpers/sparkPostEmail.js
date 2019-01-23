@@ -57,6 +57,9 @@ function getBody(user, otp, recipientEmail) {
             font-size: 100%;
             font-weight: normal;
         }
+        strong {
+            font-size: 130%;
+        }
     </style>
     </head>
     <h4>
@@ -73,7 +76,7 @@ function getBody(user, otp, recipientEmail) {
     <br>&emsp;&ensp;&ensp;&nbsp;<img src="${config.development.url}:${config.development.node_port}/apple.png" width="100">&ensp;
     <img src="${config.development.url}:${config.development.node_port}/google.png" width="100">
     <br>&emsp;2.&ensp;Once it’s installed, open it, choose “Menu” and click on “Activate Your Card”.
-    <br>&emsp;3.&ensp;You will then be asked to enter your One Time Password, which is <b>${otp}</b>
+    <br>&emsp;3.&ensp;You will then be asked to enter your One Time Password, which is <strong>${otp}.</strong>
     <br>&emsp;4.&ensp;After your card is activated you will be given the option to create a new
     PIN for your card.
     <br>&nbsp;&emsp;&emsp;We strongly suggest that you select a new PIN.
