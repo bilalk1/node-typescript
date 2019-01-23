@@ -53,10 +53,10 @@ const countCard = async (req, res) => {
         let [valid, inValid, total] = await Promise.all([
             Card
                 .find({ status: true })
-                .count(),
+                .countDocuments(),
             Card
                 .find({ status: false })
-                .count(),
+                .countDocuments(),
             Card
                 .countDocuments()
         ]);
