@@ -15,6 +15,7 @@ var config = {
         },
         ip: '127.0.0.1',
         node_port: 3000,
+        url:'http://ec2-18-216-2-141.us-east-2.compute.amazonaws.com',
         db: {
             host: 'mongodb://localhost:27017/e_activate_manager',
         },

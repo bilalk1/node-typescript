@@ -61,7 +61,7 @@ function getBody(user, otp, recipientEmail) {
     </head>
     <h4>
     <h3 style="width:100%; background-color: #5DD2B1;">
-        &ensp;<img src="http://ec2-18-216-2-141.us-east-2.compute.amazonaws.com:3000/logo.png" width="200">
+        &ensp;<img src="${config.development.url}:${config.development.node_port}/logo.png" width="200">
     </h3>
     <br>
     Dear <b>${user}</b>,
@@ -70,8 +70,8 @@ function getBody(user, otp, recipientEmail) {
     <br>date, please contact us immediately at 1-800-610-8618.
     <br><br>Once you receive your card, you will have to <b>activate it</b> by following the steps below:
     <br><br>&emsp;1.&ensp;Download and install our Mobile Banking App.
-    <br>&emsp;&ensp;&ensp;&nbsp;<img src="http://ec2-18-216-2-141.us-east-2.compute.amazonaws.com:3000/apple.png" width="100">&ensp;
-    <img src="http://ec2-18-216-2-141.us-east-2.compute.amazonaws.com:3000/google.png" width="100">
+    <br>&emsp;&ensp;&ensp;&nbsp;<img src="${config.development.url}:${config.development.node_port}/apple.png" width="100">&ensp;
+    <img src="${config.development.url}:${config.development.node_port}/google.png" width="100">
     <br>&emsp;2.&ensp;Once it’s installed, open it, choose “Menu” and click on “Activate Your Card”.
     <br>&emsp;3.&ensp;You will then be asked to enter your One Time Password, which is <b>${otp}</b>
     <br>&emsp;4.&ensp;After your card is activated you will be given the option to create a new
@@ -82,7 +82,7 @@ function getBody(user, otp, recipientEmail) {
     <br>
     <br>
     <h3 style="width:100%; background-color: #5DD2B1;">
-        <img src="http://ec2-18-216-2-141.us-east-2.compute.amazonaws.com:3000/footer.png" width="200">
+        <img src="${config.development.url}:${config.development.node_port}/footer.png" width="200">
     </h3>
     </h4>`;
     return JSON.stringify(payload);
