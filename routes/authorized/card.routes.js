@@ -18,7 +18,7 @@ const auth = require('../../middlewares').authorization;
 
 router
     .post('', auth.superAdmin, controller.postCard)
-    .get('/counts', auth.superAdmin, controller.countCard)
+    .get('/counts', auth.admin, controller.countCard)
     .get('', auth.admin, controller.getCard)
     .put('', auth.superAdmin, controller.updateCard)
     .post('/send-otp', auth.admin, controller.sendOtp)
