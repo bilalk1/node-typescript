@@ -48,7 +48,28 @@ const postCard = async (req, res) => {
     }
 
 }
+const countCard = async (req, res) => {
+    try {
+        let [valid, inValid, total] = await Promise.all([
+            Card
+                .find({ status: true })
+                .count(),
+            Card
+                .find({ status: false })
+                .count(),
+            Card
+                .countDocuments()
+        ]);
+        res.status(200).json({
+            valid,
+            inValid,
+            total
+        });
 
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+}
 const getCard = async (req, res) => {
     try {
 
@@ -214,5 +235,6 @@ module.exports = {
     updateCardStatus,
     deleteCard,
     getCardStatus,
-    postCardPin
+    postCardPin,
+    countCard
 }
