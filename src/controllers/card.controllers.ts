@@ -2,25 +2,14 @@
 
 import mongoose from 'mongoose';
 import { Request, Response } from 'express';
+import { ICard } from '../models/card.model';
 const CardModel = mongoose.model('Card');
 const messages = require('../helpers/index').messages;
 const sparkPostEmail = require('../helpers/sparkPostEmail');
 const utility = require('../helpers/utilityFunctions');
-interface Card {
-    cardLastFourDigits: string,
-    qrCodeInformation: string,
-    cardHolderName: string,
-    expiryDate: string,
-    status: string,
-    qrCode: string,
-    email: String,
-    cvv: string,
-    otp: string,
-    pin: string
-}
 const postCard = async (req: Request, res: Response) => {
     try {
-        let card: Card;
+        let card: ICard;
         card = req.body;
 
         if (!card.email || !card.cardHolderName || !card.cardLastFourDigits) {

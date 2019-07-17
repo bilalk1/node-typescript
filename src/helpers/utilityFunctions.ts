@@ -1,17 +1,4 @@
 import { ICard } from "../models/card.model";
-
-// /**********************************************************************
-//  * Copyright (c) 2018 eActivate Manager , all rights reserved
-//  * Proprietary and Confidential Information
-//  *
-//  * This source file is the property of eActivate Manager, and
-//  * may not be copied or distributed in any isomorphic form without
-//  * the prior written consent of eActivate Manager.
-//  *
-//  *
-//  * Author: Bilal Iftikhar
-
-//  */
 const constants = require('./constants');
 const QRCode = require('qrcode');
 let { sha256 } = require('js-sha256');
