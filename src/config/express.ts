@@ -1,12 +1,13 @@
 
-require('./mongooseConn.js');
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
-let routes = require('../routes');
+import routes from '../routes';
 
-module.exports = () => {
+
+export = () => {
+
     let app: Application = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
@@ -18,15 +19,14 @@ module.exports = () => {
     else {
         app.use(compression());
     }
-    // CORS -> Cross Origin Resource Sharing 
-    app.use(function (req, res, next) {
+    app.use(function (req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type,Scope,Authorization, Accept-Encoding, Accept-Language');
         next();
     });
     app.use(morgan("dev"));
-    app.get('/', (req, res) => res.status(200).json({
+    app.get('/', (req: Request, res: Response) => res.status(200).json({
         message: " App is working "
     }));
     app.use(express.static('public'));

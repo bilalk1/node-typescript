@@ -1,7 +1,7 @@
 
-let card = require('./card.controllers');
-let user = require('./user.controller');
-module.exports = {
-    card,
-    user
+
+
+import card = require('./card.controllers');
+export = {
+    card: card
 }

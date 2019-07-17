@@ -1,7 +1,8 @@
 
 import mongoose from 'mongoose';
-let { config } = require('./config.js');
-let dburl = config.development.db.host
+import config from './config';
+
+const dburl: string = config.development.db.host
 
 mongoose.connect(dburl, { useNewUrlParser: true });
 mongoose.connection.on('connected', function () {
@@ -14,4 +15,4 @@ mongoose.connection.on('disconnected', function () {
     console.log(" Mongoose disconnected ");
 });
 
-require('../models');
+import models from '../models';

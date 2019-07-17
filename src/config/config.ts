@@ -1,4 +1,4 @@
-module.exports = {
+export = {
     development: {
         credentials: {
             adminUser: '',
@@ -17,7 +17,7 @@ module.exports = {
         node_port: 3000,
         url: '',
         db: {
-            host: 'mongodb://localhost:27017/e_activate_manager',
+            host: 'mongodb://localhost:27017/node-typescript',
         },
         jwtSecret: 'password',
 
