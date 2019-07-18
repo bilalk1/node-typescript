@@ -1,7 +1,4 @@
-
-
-
-import card = require('./card.controllers');
+import card from './card.controllers';
 export = {
     card: card
 }

@@ -1,12 +1,12 @@
-let { config } = require('../config/config');
-const request = require('request');
+import config from '../config/config';
+import * as request from 'request';
 
-const url = config.development.sparkPost.url;
-const headers = {
+const url: string = config.development.sparkPost.url;
+const headers: object = {
     'content-type': config.development.sparkPost.contentTtype,
     'Authorization': config.development.sparkPost.authorization,
 };
-
+//pending through generics 
 let payload = {
     "content": {
         "from": {
@@ -19,27 +19,23 @@ let payload = {
     "recipients": []
 };
 
-const sendEmail = (user: string, otp: string, recipientEmail: string) => { // issue with promise type 
+const sendEmail = async (user: string, otp: string, recipientEmail: string): Promise<any> => {
     try {
         let body: string = getBody(user, otp, recipientEmail);
+
         return new Promise((resolve, reject) => {
             request.post({
                 headers: headers,
                 url: url,
                 body: body
-            }, function (err: Error, resp: Response, body: string) {
-                if (err) {
-                    reject(err);
-                } else {
-                    let obj = JSON.parse(body); //what will be the return type of parse
-                    (obj.hasOwnProperty('errors')) ?
-                        reject(obj.errors[0]) :
-                        resolve();
-                }
+            }, function (resp: Response) {
+                console.log(resp);
+                resolve(resp)
             });
         });
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        return err;
     }
 }
 function getBody(user: string, otp: string, recipientEmail: string): string {
@@ -95,4 +91,4 @@ function getDate(): Date {
     let comingDay: number = toDay.setDate(toDay.getDate() + 5);
     return new Date(comingDay);
 }
-module.exports = { sendEmail }
+export = { sendEmail }

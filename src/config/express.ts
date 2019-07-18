@@ -1,12 +1,12 @@
 
+import './mongooseConn';
 import express, { Application, Request, Response, NextFunction } from 'express';
-import bodyParser from 'body-parser';
-import morgan from 'morgan';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 import routes from '../routes';
+import morgan from 'morgan';
 
-
-export = () => {
+export = (): Application => {
 
     let app: Application = express();
     app.use(bodyParser.json());

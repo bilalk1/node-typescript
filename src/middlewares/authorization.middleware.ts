@@ -1,48 +1,24 @@
 
+import { Request, Response, NextFunction } from 'express';
+import helpers from '../helpers/defaultMessages';
 
-export interface genericPayload {
-    payload: IUser,
 
-}
-import { Request, Response, NextFunction } from 'express'
-let messages = require("../helpers/defaultMessages");
-import mongoose from 'mongoose';
-import { IUser } from '../models/user.model';
-import { ICard } from '../models/card.model';
-const User = mongoose.model('User');
-const admin = async (req: Request & genericPayload, res: Response, next: NextFunction) => {
-    try {
-        let payload = req.payload;
-        if (!payload.email || !payload.scope) {
-            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
-        }
-        if (payload.scope === 'admin' || payload.scope === 'superAdmin') {
-            next()
-        } else {
-            return res.status(401).json({ message: messages.account.unAuthorized });
-        }
-
-    } catch (error) {
-        return res.status(401).json({ message: messages.account.unAuthorized });
-    }
-};
-
-const superAdmin = async (req: Request & genericPayload, res: Response, next: NextFunction) => {
+//any will  be replaced by proper Request 
+const superAdmin = async (req: any, res: Response, next: NextFunction) => {
     try {
         let { email, scope } = req.payload;
         if (!email || !scope) {
-            return res.status(400).json({ message: messages.generic.requiredFieldsMissing });
+            return res.status(400).json({ message: helpers.generic.requiredFieldsMissing });
         }
         if (scope === 'superAdmin') {
             next()
         } else {
-            return res.status(401).json({ message: messages.account.unAuthorized });
+            return res.status(401).json({ message: helpers.account.unAuthorized });
         }
     } catch (error) {
-        return res.status(401).json({ message: messages.account.unAuthorized });
+        return res.status(401).json({ message: helpers.account.unAuthorized });
     }
 };
-module.exports = {
-    admin,
+export = {
     superAdmin
 }

@@ -1,20 +1,6 @@
 
-import mongoose, { Schema, Document } from 'mongoose';
-const timestamp = require('mongoose-timestamp');
-
-export interface ICard extends Document {
-    cardLastFourDigits: string,
-    qrCodeInformation: string,
-    cardHolderName: string,
-    expiryDate: string,
-    status: string,
-    qrCode: string,
-    email: String,
-    cvv: string,
-    otp: string,
-    pin: string,
-    id?: string
-}
+import mongoose, { Schema } from 'mongoose';
+import { ICard } from '../interfaces/card';
 
 const schema: Schema = new Schema({
     cardLastFourDigits: {
@@ -50,5 +36,4 @@ const schema: Schema = new Schema({
         type: String
     }
 }, { versionKey: false });
-schema.plugin(timestamp);
-export default mongoose.model<ICard >('Card ', schema);
+export default mongoose.model<ICard>('Card ', schema);

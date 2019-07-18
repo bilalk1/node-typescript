@@ -1,22 +1,19 @@
-import { ICard } from "../models/card.model";
-const constants = require('./constants');
-const QRCode = require('qrcode');
-let { sha256 } = require('js-sha256');
+import { ICard } from "../interfaces/card";
+import constants from './constants';
+import { sha256 } from 'js-sha256';
+import { Request } from 'express';
+import QRCode from 'qrcode';
 
-// function initializePagination(req) {
-//     const page = req.query.page || 1,
-//         userLimit = parseInt(req.query.limit) || constants.PAGINATE.LIMIT,
-//         limit = userLimit > constants.PAGINATE.MAX_LIMIT ? constants.PAGINATE.LIMIT : userLimit;
-//     return {
-//         page,
-//         limit,
-//     }
-// }
-// while (true) {
-//     let OTP = Math.random().toString(16).substring(2, 6) + Math.random().toString(36).substring(2, 6).toUpperCase();
-//     let Exp = /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i;
-//     if (OTP.match(Exp)) return OTP;
-// }
+
+function initializePagination(req: Request): Object {
+    const page = req.query.page || 1,
+        userLimit = parseInt(req.query.limit) || constants.PAGINATE.LIMIT,
+        limit = userLimit > constants.PAGINATE.MAX_LIMIT ? constants.PAGINATE.LIMIT : userLimit;
+    return {
+        page,
+        limit,
+    }
+}
 function generateOTP(): string {
     var digits = '0123456789';
     let OTP = '';
@@ -25,8 +22,8 @@ function generateOTP(): string {
     }
     return OTP;
 }
-function SHA256(card: ICard) {
-    let id = card.id;
+function SHA256(card: ICard): string {
+    let id: string = card.id;
     let key = sha256(id);
     key = sha256.hmac(key, card.otp)
     key = sha256.hmac(key, card.cardHolderName)
@@ -34,10 +31,10 @@ function SHA256(card: ICard) {
     return key;
 }
 
-const generateQrCode = (body: string) => {
+const generateQrCode = function (body: string): Promise<string> {
     try {
-        return new Promise((resolve, reject) => {
-            QRCode.toDataURL(body, function (err: Error, res: Response) {
+        return new Promise<string>((resolve, reject) => {
+            QRCode.toDataURL(body, function (err: Error, res: string) {
                 if (err) {
                     reject(err);
                 } else {
@@ -47,11 +44,12 @@ const generateQrCode = (body: string) => {
         })
 
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        return err
     }
 }
-module.exports = {
-    // initializePagination,
+export = {
+    initializePagination,
     generateOTP,
     generateQrCode,
     SHA256

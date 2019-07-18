@@ -1,7 +1,7 @@
 
 import express, { Request, Response, NextFunction, Router } from 'express';
 const router: Router = express.Router();
-const mdw = require('../middlewares'); // pending 
+import mdw from '../middlewares';
 import authorized from './authorized';
 
 
