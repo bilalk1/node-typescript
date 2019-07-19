@@ -1,3 +1,4 @@
+import { Ipagination } from "../interfaces/pagination";
 import { ICard } from "../interfaces/card";
 import constants from './constants';
 import { sha256 } from 'js-sha256';
@@ -5,7 +6,9 @@ import { Request } from 'express';
 import QRCode from 'qrcode';
 
 
-function initializePagination(req: Request): Object {
+
+
+function initializePagination(req: Request): Ipagination {
     const page = req.query.page || 1,
         userLimit = parseInt(req.query.limit) || constants.PAGINATE.LIMIT,
         limit = userLimit > constants.PAGINATE.MAX_LIMIT ? constants.PAGINATE.LIMIT : userLimit;
