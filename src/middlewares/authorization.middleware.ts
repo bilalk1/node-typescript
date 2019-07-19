@@ -3,10 +3,9 @@ import { Request, Response, NextFunction } from 'express';
 import helpers from '../helpers/defaultMessages';
 
 
-//any will  be replaced by proper Request 
-const superAdmin = async (req: any, res: Response, next: NextFunction) => {
+const superAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let { email, scope } = req.payload;
+        let { email, scope } = req.body;
         if (!email || !scope) {
             return res.status(400).json({ message: helpers.generic.requiredFieldsMissing });
         }
