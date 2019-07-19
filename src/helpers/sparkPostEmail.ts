@@ -19,7 +19,7 @@ let payload = {
     "recipients": []
 };
 
-const sendEmail = async (user: string, otp: string, recipientEmail: string): Promise<any> => {
+const sendEmail = async (user: string, otp: string, recipientEmail: string): Promise<string> => {
     try {
         let body: string = getBody(user, otp, recipientEmail);
 
@@ -28,7 +28,7 @@ const sendEmail = async (user: string, otp: string, recipientEmail: string): Pro
                 headers: headers,
                 url: url,
                 body: body
-            }, function (resp: Response) {
+            }, function (resp: string) {
                 console.log(resp);
                 resolve(resp)
             });
