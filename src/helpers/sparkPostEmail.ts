@@ -1,12 +1,12 @@
 import config from '../config/config';
 import * as request from 'request';
+import { Iheader } from '../interfaces/header';
 
 const url: string = config.development.sparkPost.url;
-const headers: object = {
+const headers: Iheader = {
     'content-type': config.development.sparkPost.contentTtype,
     'Authorization': config.development.sparkPost.authorization,
 };
-//pending through generics 
 let payload = {
     "content": {
         "from": {
